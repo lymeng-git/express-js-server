@@ -1,0 +1,10 @@
+### Health check
+
+GET http://localhost:3000/users/500 HTTP/1.1
+
+### Health check
+
+DELETE  http://localhost:3000/users/500 HTTP/1.1
+### Health check
+
+GET  http://localhost:3000/test-db HTTP/1.1
