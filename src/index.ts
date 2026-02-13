@@ -1,6 +1,7 @@
 import express,{Request,Response} from 'express';
 import usersRouter from './routes/users';
 import staffRouter from './routes/staff';
+import salaryRouter from './routes/salary';
 import cors from 'cors';
 import morgan from 'morgan';
 import compression from 'compression';
@@ -23,10 +24,10 @@ app.use(compression());
 
 app.use('/api/user',usersRouter);
 app.use('/staff',staffRouter);
-
-app.get("/test",(req:Request,res:Response)=>{
-    res.send({"OK":true});
-})
+app.use('/salary',salaryRouter);
+// app.get('/salary',(req:Request,res:Response)=>{
+//     res.status(200).json({result:true});
+// })
 
 // REQUESTS go here
 
