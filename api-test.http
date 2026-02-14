@@ -7,4 +7,4 @@ GET http://localhost:3000/users/500 HTTP/1.1
 DELETE  http://localhost:3000/users/500 HTTP/1.1
 ### Health check
 
-GET  http://localhost:3000/salary HTTP/1.1
+GET  http://localhost:3000/salary?month=2&year=2025 HTTP/1.1
