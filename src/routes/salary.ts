@@ -1,10 +1,11 @@
 import { Router } from "express";
-import {getMonthlySalary} from "../handlers/salary";
+import { getMonthlySalary, update1Salary } from "../handlers/salary";
 
 
-const router  = Router();
+const router = Router();
 
 router.get('/', getMonthlySalary);
+router.put('/:staffid', update1Salary);
 // router.post('/',staffValidationSchemaPrePost, postStaff);
 
 // router.get('/:id', getUserById);
