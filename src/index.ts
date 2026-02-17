@@ -1,17 +1,18 @@
-import express,{Request,Response} from 'express';
+import express from 'express';
 import usersRouter from './routes/users';
 import staffRouter from './routes/staff';
 import salaryRouter from './routes/salary';
 import cors from 'cors';
 import morgan from 'morgan';
 import compression from 'compression';
+import { requestedTime } from './middleware/middleware';
 
 const app = express();
 app.use(
     cors({
-        origin:"http://127.0.0.1:5173",
-        methods:["GET","POST","PUT","DELETE"],
-        credentials:true,
+        origin: "http://127.0.0.1:5173",
+        methods: ["GET", "POST", "PUT", "DELETE"],
+        credentials: true,
     })
 );
 app.use(express.json());
@@ -20,11 +21,12 @@ app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json());
 app.use(compression());
+app.use(requestedTime);
 
 
-app.use('/api/user',usersRouter);
-app.use('/staff',staffRouter);
-app.use('/salary',salaryRouter);
+app.use('/api/user', usersRouter);
+app.use('/staff', staffRouter);
+app.use('/salary', salaryRouter);
 // app.get('/salary',(req:Request,res:Response)=>{
 //     res.status(200).json({result:true});
 // })
@@ -36,6 +38,6 @@ app.use('/salary',salaryRouter);
 
 const PORT = 3000;
 
-app.listen(PORT,()=>{
+app.listen(PORT, () => {
     console.log(`Running on Port ${PORT}`);
 });

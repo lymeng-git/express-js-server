@@ -1,10 +1,12 @@
 import { Router } from "express";
-import { getMonthlySalary, update1Salary } from "../handlers/salary";
+import { delete1Salary, getMonthlySalary, newStaffSalary, update1Salary } from "../handlers/salary";
 
 
 const router = Router();
 
 router.get('/', getMonthlySalary);
+router.post('/new', newStaffSalary);
+router.delete('/delete/:staffid', delete1Salary);
 router.put('/:staffid', update1Salary);
 // router.post('/',staffValidationSchemaPrePost, postStaff);
 
