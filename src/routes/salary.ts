@@ -4,10 +4,11 @@ import { delete1Salary, getMonthlySalary, newStaffSalary, update1Salary } from "
 
 const router = Router();
 
-router.get('/', getMonthlySalary);
-router.post('/new', newStaffSalary);
+// router.get('/', getMonthlySalary);
+router.get('/get/:department', getMonthlySalary);
 router.delete('/delete/:staffid', delete1Salary);
-router.put('/:staffid', update1Salary);
+router.put('/put/:staffid', update1Salary);
+router.post('/post', newStaffSalary);
 // router.post('/',staffValidationSchemaPrePost, postStaff);
 
 // router.get('/:id', getUserById);

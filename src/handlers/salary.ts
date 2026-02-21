@@ -3,6 +3,9 @@ import pool from "../db/db";
 
 export const getMonthlySalary = async (req: Request, res: Response) => {
     const { month, year } = req.query;
+    const { department } = req.params;
+    console.log(`year: ${year}, month: ${month}`);
+    console.log(`department: ${department}`);
     try {
         const result_salary = await pool.query(`
             SELECT *,
@@ -10,7 +13,7 @@ export const getMonthlySalary = async (req: Request, res: Response) => {
             FROM salary_table
             INNER JOIN ubet24_staff
             ON ubet24_staff.staffid = salary_table.staffid
-            WHERE year=${year} AND month=${month}
+            WHERE department='${department}' AND year=${year} AND month=${month}
         `);
         if (result_salary.rowCount === 0) {
             res.status(404).json({ error: "Data not found in Database." });
@@ -22,6 +25,7 @@ export const getMonthlySalary = async (req: Request, res: Response) => {
         res.status(500).json({ error: 'Database error' });
     }
 }
+
 export const update1Salary = async (req: Request, res: Response) => {
     const { staffid } = req.params;
     const { bonus, save_upl, loan, salary, lastday } = req.body;
@@ -46,7 +50,7 @@ export const update1Salary = async (req: Request, res: Response) => {
     };
 }
 export const newStaffSalary = async (req: Request, res: Response) => {
-    const { staffid, name, sex, position, salary, jointdate } = req.body;
+    const { staffid, name, sex, position, salary, jointdate, department } = req.body;
     const requestedDate = req.requestTime;
     const year = requestedDate.getFullYear();
     const month = requestedDate.getMonth() + 1;
@@ -55,10 +59,10 @@ export const newStaffSalary = async (req: Request, res: Response) => {
     // console.log(req.body);
     try {
         const staffResult = await pool.query(`
-            INSERT INTO ubet24_staff (name,sex,position,jointdate,staffid)
-            VALUES ($1,$2,$3,$4,$5)
+            INSERT INTO ubet24_staff (name,sex,position,jointdate,staffid,department,status)
+            VALUES ($1,$2,$3,$4,$5,$6,'active')
             RETURNING *;`,
-            [name, sex, position, jointdate, staffid])
+            [name, sex, position, jointdate, staffid, department])
         if (staffResult.rowCount === 0) {
             return res.status(500).json({ message: 'ERROR: failed to add staff salary.' })
         };
