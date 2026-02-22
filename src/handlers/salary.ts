@@ -4,8 +4,8 @@ import pool from "../db/db";
 export const getMonthlySalary = async (req: Request, res: Response) => {
     const { month, year } = req.query;
     const { department } = req.params;
-    console.log(`year: ${year}, month: ${month}`);
-    console.log(`department: ${department}`);
+    // console.log(`year: ${year}, month: ${month}`);
+    // console.log(`department: ${department}`);
     try {
         const result_salary = await pool.query(`
             SELECT *,
