@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { delete1Salary, getMonthlySalary, newStaffSalary, update1Salary } from "../handlers/salary";
+import { delete1Salary, getMonthlySalary, newMonthSalary, newStaffSalary, update1Salary } from "../handlers/salary";
 
 
 const router = Router();
@@ -8,7 +8,8 @@ const router = Router();
 router.get('/get/:department', getMonthlySalary);
 router.delete('/delete/:staffid', delete1Salary);
 router.put('/put/:staffid', update1Salary);
-router.post('/post', newStaffSalary);
+router.post('/post/nextmonth', newMonthSalary);
+router.post('/post/newstaff',newStaffSalary);
 // router.post('/',staffValidationSchemaPrePost, postStaff);
 
 // router.get('/:id', getUserById);

@@ -74,7 +74,7 @@ export const newStaffSalary = async (req: Request, res: Response) => {
         if (salaryResult.rowCount === 0) {
             return res.status(500).json({ message: 'ERROR: failed to add staff salary.' })
         };
-        res.status(201).json({ "ID": staffid, "Status": "ADDED" });
+        res.status(201).json(staffResult.rows);
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: 'Server error' });
@@ -99,9 +99,46 @@ export const delete1Salary = async (req: Request, res: Response) => {
         if (staffResult.rowCount === 0) {
             return res.status(500).json({ message: 'ERROR: failed to add staff salary.' })
         };
-        res.status(200).json({ "ID": staffid, "Status": "DELETED" });
+        res.status(200).json(staffResult.rows);
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: 'Server error' });
     };
+}
+
+export const newMonthSalary = async (req: Request, res: Response) => {
+    const { year, month } = req.body;
+    try {
+        const monthResult = await pool.query(`
+            INSERT INTO salary_table
+            (staffid, salary, bonus, save_upl, loan, year, month, lastday)
+            SELECT
+                staffid,
+                salary,
+                0 AS bonus,
+                0 AS save_upl,
+                0 AS loan,
+                CASE 
+                    WHEN month = 12 THEN year + 1
+                    ELSE year
+                END,
+                CASE 
+                    WHEN month = 12 THEN 1
+                    ELSE month + 1
+                END,
+            	(make_date(year, month, 1) + interval '2 month - 1 day')::date AS last_day
+            FROM salary_table
+            WHERE year = $1
+              AND month = $2;
+            select * from salary_table;
+            `, [year, month]);
+        if (monthResult.rowCount === 0) {
+            return res.status(500).json({ message: 'ERROR: failed to add MONTH.' })
+        };
+        res.status(201).json({ "MONTH": month + 1, "Year": year });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Server error' });
+    }
+    res.status(200);
 }
