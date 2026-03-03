@@ -2,6 +2,7 @@ import express from 'express';
 import usersRouter from './routes/users';
 import staffRouter from './routes/staff';
 import salaryRouter from './routes/salary';
+import recordRouter from './routes/record'
 import cors from 'cors';
 import morgan from 'morgan';
 import compression from 'compression';
@@ -32,6 +33,7 @@ app.use(requestedTime);
 app.use('/api/user', usersRouter);
 app.use('/api/staff', staffRouter);
 app.use('/api/salary', salaryRouter);
+app.use('/api/record', recordRouter);
 // app.get('/salary',(req:Request,res:Response)=>{
 //     res.status(200).json({result:true});
 // })
