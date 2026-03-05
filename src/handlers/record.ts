@@ -29,20 +29,11 @@ export const getRecord = async (req: Request, res: Response) => {
     res.status(200).json(json);
     // res.status(200).json({ now: thisMonth, next: nextMonth });
 }
-// function formattingDate(year: number, month: number) {
-//     const d = new Date(year, month, 1);
-//     d = d.
-//     const formatted = new Intl.DateTimeFormat("en-CA", {
-//         year: "numeric",
-//         month: "2-digit",
-//         day: "2-digit",
-//         hour: "2-digit",
-//         minute: "2-digit",
-//         second: "2-digit",
-//         hour12: false
-//     }).format(d).replace(",", "");
-//     return formatted;
-// }
+export const postRecord = async (req: Request, res: Response) => {
+    console.log(req.body);
+    res.status(200);
+}
+
 function formatedDate(year: number, month: number) {
     const TwoDigitsMonth = String(month).padStart(2, '0')
     const d = `${year}-${TwoDigitsMonth}-01 00:00:00`;

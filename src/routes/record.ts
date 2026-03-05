@@ -12,6 +12,7 @@ const router = Router();
 // router.post('/post/newstaff',newStaffSalary);
 // router.post('/',staffValidationSchemaPrePost, postStaff);
 router.get('/get',getRecord);
+router.post('/post/new',Newre)
 
 // router.get('/:id', getUserById);
 // router.post('/',createUser);
