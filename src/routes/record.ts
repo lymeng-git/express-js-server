@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getRecord } from "../handlers/record";
+import { getRecord, postRecord } from "../handlers/record";
 
 
 const router = Router();
@@ -12,7 +12,7 @@ const router = Router();
 // router.post('/post/newstaff',newStaffSalary);
 // router.post('/',staffValidationSchemaPrePost, postStaff);
 router.get('/get',getRecord);
-router.post('/post/new',Newre)
+router.post('/post/new',postRecord)
 
 // router.get('/:id', getUserById);
 // router.post('/',createUser);
